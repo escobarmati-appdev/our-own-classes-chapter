@@ -26,21 +26,25 @@
 require 'date'
 
 class Person
-  attr_accessor :first_name
-  attr_accessor :last_name
-  attr_accessor :birthdate
-
-  def age
-    dob = Date.parse(self.birthdate)
-    now = Date.today
-    age_in_days = now - dob
-    age_in_years = age_in_days / 365
-
-    return age_in_years.to_i
-  end
-
+  attr_accessor :first_name, :last_name, :birthdate
+  
   def full_name
-    return self.first_name + " " + self.last_name
+    "#{first_name} #{last_name}"
   end
-
+  
+  def age
+    birthdate_date = Date.parse(birthdate)
+    days_since_birth = (Date.today - birthdate_date).to_i
+    years_since_birth = days_since_birth / 365
+    years_since_birth
+  end
 end
+
+new_person = Person.new
+new_person.first_name = "Joe"
+new_person.last_name = "Mama"
+p new_person.full_name  # Output: "Joe Mama"
+
+other_person = Person.new
+other_person.birthdate = "April 19, 1987"
+p other_person.age  # Output: 35
